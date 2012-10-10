@@ -81,6 +81,7 @@ class Photo(models.Model):
     iso_speed = models.CharField(max_length=150, blank=True, null=True)
     exposure_program = models.CharField(max_length=150, blank=True, null=True)
     metering_mode = models.CharField(max_length=150, blank=True, null=True, db_index=True)
+    date_time_taken = models.CharField(max_length=150)
 
     # Can belong to one event and/or many albums
     event = models.ForeignKey(Event, blank=True, null=True)
@@ -164,6 +165,13 @@ class Photo(models.Model):
             self.metering_mode = metering_modes[exif_data[37383]]
         except KeyError:
             pass
+
+        # Determine date time taken
+        try:
+            self.date_time_taken = exif_data[36867]
+        except KeyError:
+            pass
+
 
     def save(self, *args, **kwargs):
         self._read_exif()
