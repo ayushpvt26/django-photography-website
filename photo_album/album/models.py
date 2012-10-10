@@ -6,7 +6,7 @@ from PIL import Image, ExifTags
 from django.db.models.signals import pre_save
 from django.db import models
 
-
+# TODO: Refactor event and album in to generic image collection class
 class Event(models.Model):
 
     title = models.CharField(max_length=150)
@@ -39,6 +39,13 @@ class Event(models.Model):
     def __unicode__(self):
         return self.title
 
+    @property
+    def cover_image(self):
+        try:
+            return self.photo_set.all()[0]
+        except IndexEror:
+            return None
+
 class Album(models.Model):
 
     title = models.CharField(max_length=150)
@@ -54,6 +61,13 @@ class Album(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    @property
+    def cover_image(self):
+        try:
+            return self.photo_set.all()[0]
+        except IndexEror:
+            return None
 
 class Photo(models.Model):
 
@@ -174,6 +188,7 @@ class Photo(models.Model):
 
 
     def save(self, *args, **kwargs):
+        super(Photo, self).save(*args, **kwargs)
         self._read_exif()
         super(Photo, self).save(*args, **kwargs)
 

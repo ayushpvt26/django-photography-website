@@ -6,70 +6,67 @@
 <p><a href="{{ album.get_absolute_url }}">&lt; Back to {{ album.title }}</a></p>
 {% elif object.event %}
 <p><a href="{{ object.event.get_absolute_url }}">&lt; Back to {{ object.event.title }}</a></p>
-{% else %}
-<p><a href="/">&lt; Back to Daniel Davies Photography</a></p>
 {% endif %}
 
-<h1>{{ object.title }}</h1>
+<h2>{{ object.title }}</h2>
 <p>{{ object.description }}</p>
 
 <div id="image">
-    {% thumbnail object.picture "500x500" as im %}
+    {% thumbnail object.picture "670" as im %}
     <img src="{{ im.url }}">
     {% endthumbnail %}
-</div> 
-
-<h2>About this image</h2>
-<table>
-    <tr>
-        <th>Camera</th>
-        <td>{{ object.camera }}</td>
-    </tr>
-    <tr>
-        <th>Lens</th>
-        <td>{{ object.lens }}</td>
-    </tr>
-    <tr>
-        <th>Date taken</th>
-        <td>{{ object.date_time_taken }}</td>
-    </tr>
-    <tr>
-        <th>Shutter Speed</th>
-        <td>{{ object.shutter_speed }}</td>
-    </tr>
-    <tr>
-        <th>F Number</th>
-        <td>f/{{ object.f_number }}</td>
-    </tr>
-    <tr>
-        <th>Focal Length</th>
-        <td>{{ object.focal_length }}mm</td>
-    </tr>
-    <tr>
-        <th>ISO Speed</th>
-        <td>{{ object.iso_speed }}</td>
-    </tr>
-    <tr>
-        <th>Exposure program</th>
-        <td>{{ object.exposure_program }}</td>
-    </tr>
-    <tr>
-        <th>Metering mode</th>
-        <td>{{ object.metering_mode }}</td>
-    </tr>
-</table>
-
-<h3>Event</h3>
-<div id="map_canvas" style="width: 350px; height: 100px;"></div>
-<p>This photo was taken at <a href="{{ object.event.get_absolute_url }}">{{ object.event.title }}</a>.</p>
-
-<h3>Albums</h3>
-<p>This photo is featured in</p>
-<ul>
-    {% for album in object.albums.all %}
-    <a href="{{ album.get_absolute_url }}">{{ album.title }}</a>{% if forloop.last %}.{% else %},{% endif %}</p>
-    {% endfor %}
-</ul>
+    <div id="about-image">
+        <div id="map_canvas" style="width: 240px; height: 100px;"></div>
+        <p>This photo was taken at <a href="{{ object.event.get_absolute_url }}">{{ object.event.title }}</a> and is featured in the
+        {% for album in object.albums.all %}
+        {% if forloop.last %}and {% elif not forloop.first %}, {% endif %}<a href="{{ album.get_absolute_url }}">{{ album.title }}</a>
+        {% endfor %} album{{ object.albums.all.count|pluralize:"s" }}.</p>
+        <h3>Camera Information</h3>
+        <table>
+            <tr>
+                <th>Camera</th>
+                <td>{{ object.camera }}</td>
+            </tr>
+            <tr>
+                <th>Lens</th>
+                <td>{{ object.lens }}</td>
+            </tr>
+            <tr>
+                <th>Date taken</th>
+                <td>{{ object.date_time_taken }}</td>
+            </tr>
+            <tr>
+                <th>Shutter Speed</th>
+                <td>{{ object.shutter_speed }}</td>
+            </tr>
+            <tr>
+                <th>F Number</th>
+                <td>f/{{ object.f_number }}</td>
+            </tr>
+            <tr>
+                <th>Focal Length</th>
+                <td>{{ object.focal_length }}mm</td>
+            </tr>
+            <tr>
+                <th>ISO Speed</th>
+                <td>{{ object.iso_speed }}</td>
+            </tr>
+            <tr>
+                <th>Exposure program</th>
+                <td>{{ object.exposure_program }}</td>
+            </tr>
+            <tr>
+                <th>Metering mode</th>
+                <td>{{ object.metering_mode }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% if album %}
+<p><a href="{{ album.get_absolute_url }}">&lt; Back to {{ album.title }}</a></p>
+{% elif object.event %}
+<p><a href="{{ object.event.get_absolute_url }}">&lt; Back to {{ object.event.title }}</a></p>
+{% endif %}
 {% endblock content %}
 
 {% block js %}
@@ -80,7 +77,7 @@
   function initialize() {
     var mapOptions = {
       center: new google.maps.LatLng({{ object.event.latitude }}, {{ object.event.longitude }}),
-      zoom: 5,
+      zoom: 6,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"),

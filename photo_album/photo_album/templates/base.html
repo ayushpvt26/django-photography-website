@@ -2,14 +2,29 @@
 <html>
   <head>
     <title>{% block title %}{% endblock title %}</title>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Cantarell:700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/layout.css" />
     {% block js %}{% endblock js %}
   </head>
   <body {% block extend_body %}{% endblock extend_body %}>
-    {% block content %}{% endblock content %}
-    <div id="footer">
-      <p>
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/StillImage" property="dct:title" rel="dct:type">Daniel Davies Photography</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.danux.co.uk" property="cc:attributionName" rel="cc:attributionURL">Daniel Davies</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
-      </p>
+    <div id="container">
+      <ul id="navigation">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Albums</a></li>
+        <li><a href="#">Events</a></li>
+      </ul>
+      <h1>Daniel Davies Photography</h1>
+      {% block content %}{% endblock content %}
+      <div id="footer">
+        <p>
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br />All images on <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/StillImage" property="dct:title" rel="dct:type">Daniel Davies Photography</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.danux.co.uk" property="cc:attributionName" rel="cc:attributionURL">Daniel Davies</a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+        </p>
+        <p>
+            The source code for the website can be downloaded from <a href="https://github.com/danux/django-photography-website">Github</a>.
+        </p>
+      </div>
     </div>
   </body>
 </html>

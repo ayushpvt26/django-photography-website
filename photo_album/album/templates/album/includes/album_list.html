@@ -1,0 +1,17 @@
+{% load thumbnail %}
+<ul class="thumbnail-list">
+  {% for node in nodes %}
+    <li>
+      <a href="{{ node.get_absolute_url }}">
+        {% thumbnail node.cover_image.picture "80x80" crop="center" as im %}
+        <img src="{{ im.url }}">
+        {% endthumbnail %}
+      </a>
+      <a href="{{ node.get_absolute_url }}">
+        {{ node.title }}
+      </a>
+      <br />
+      45 photos
+    </li>
+  {% endfor %}
+</ul>
