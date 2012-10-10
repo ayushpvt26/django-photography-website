@@ -1,3 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Daniel Davies Photography</h1>
+<p>
+    My name is Daniel Davies and I'm an enthusiastic amateur photographer. This website exists to showcase my photos and it is specifically designed to help me get feedback on my images, improve my photography, and help my "subjects" find their faces.
+</p>
+<p>
+    I really enjoy portrait photography so a lot of these photos include people. If you're one of the people you can get in touch and I'll send you the full-size version of your image, as well as the RAW file (i.e. not photoshopped)
+</p>
+<div id="map_canvas" style="width: 680px; height: 350px;"></div>
 <h2>Albums</h2>
 <ul>
     {% for album in albums %}
@@ -10,3 +20,39 @@
         <li><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></li>
     {% endfor %}
 </ul>
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript"
+  src="http://maps.googleapis.com/maps/api/js?key={{ settings.MAP_API_KEY }}&sensor=false">
+</script>
+<script type="text/javascript">
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(50.93, 0.922852),
+      zoom: 6,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        mapOptions);
+
+    {% for event in events %}
+    var contentString = '{{ event.title }}</br /><a href="{{ event.get_absolute_url }}">View event</a>';
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng({{ event.latitude }}, {{ event.longitude }}),
+      map: map,
+      title: '{{ event.title }}',
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+    {% endfor %}
+  }
+</script>
+{% endblock js %}
+
+{% block extend_body %}onload="initialize()"{% endblock extend_body %}

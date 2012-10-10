@@ -156,3 +156,5 @@ LOGGING = {
     }
 }
 
+MAP_API_KEY = 'AIzaSyADKWJx1XBGYuf4BnL67nnZ4K9eZxu_Zrs'
+

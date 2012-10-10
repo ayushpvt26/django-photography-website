@@ -1,3 +1,6 @@
+import string
+import urllib
+
 from PIL import Image, ExifTags
 
 from django.db.models.signals import pre_save
@@ -14,9 +17,27 @@ class Event(models.Model):
     latitude = models.CharField(max_length=150, blank=True, null=True)
     longitude = models.CharField(max_length=150, blank=True, null=True)
 
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
     @models.permalink
     def get_absolute_url(self):
         return ('event-detail', (), {'slug': self.slug})
+
+    def _get_lat_long(self):
+        url = 'http://maps.google.com/maps/geo?q=%s&output=csv&sensor=false' % self.location
+        feed = urllib.urlopen(url)
+        (status, accuracy, latitude, longitude) = string.split(feed.read(), ',')
+        if int(status) == 200:
+            self.latitude = latitude
+            self.longitude = longitude
+
+    def save(self, *args, **kwargs):
+        self._get_lat_long()
+        super(Event, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.title
 
 class Album(models.Model):
 
@@ -24,9 +45,15 @@ class Album(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True, null=True)
 
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
     @models.permalink
     def get_absolute_url(self):
         return ('album-detail', (), {'slug': self.slug})
+
+    def __unicode__(self):
+        return self.title
 
 class Photo(models.Model):
 
@@ -145,3 +172,6 @@ class Photo(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('photo-detail', (), {'slug': self.slug})
+
+    def __unicode__(self):
+        return self.title

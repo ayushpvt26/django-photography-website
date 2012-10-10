@@ -1,4 +1,6 @@
+{% extends 'base.html' %}
 {% load thumbnail %}
+{% block content %}
 <h1>{{ object.title }}</h1>
 <p>{{ object.description }}</p>
 
@@ -45,6 +47,7 @@
 </table>
 
 <h3>Event</h3>
+<div id="map_canvas" style="width: 350px; height: 100px;"></div>
 <p>This photo was taken at <a href="{{ object.event.get_absolute_url }}">{{ object.event.title }}</a>.</p>
 
 <h3>Albums</h3>
@@ -54,3 +57,28 @@
     <a href="{{ album.get_absolute_url }}">{{ album.title }}</a>{% if forloop.last %}.{% else %},{% endif %}</p>
     {% endfor %}
 </ul>
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript"
+  src="http://maps.googleapis.com/maps/api/js?key={{ settings.MAP_API_KEY }}&sensor=false">
+</script>
+<script type="text/javascript">
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng({{ object.event.latitude }}, {{ object.event.longitude }}),
+      zoom: 5,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        mapOptions);
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng({{ object.event.latitude }}, {{ object.event.longitude }}),
+      map: map
+    });
+  }
+</script>
+{% endblock js %}
+
+{% block extend_body %}onload="initialize()"{% endblock extend_body %}

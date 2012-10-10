@@ -1,15 +1,3 @@
-{% load thumbnail %}
 <h1>{{ object.title }}</h1>
 <p>{{ object.descripton }}</p>
-<h2>Photographs</h2>
-<ul>
-    {% for photo in object.photo_set.all %}
-    <li>
-        {% thumbnail photo.picture "80x80" as im %}
-        <a href="{{ photo.get_absolute_url }}">
-            <img src="{{ im.url }}">
-        </a>
-        {% endthumbnail %}
-    </li>
-    {% endfor %}
-</ul>
+{% include 'album/includes/photo_list.html' %}

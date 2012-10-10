@@ -8,6 +8,14 @@ class PhotoAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
 
+class EventAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
+    save_on_top = True
+
+class AlbumAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
+    save_on_top = True
+
 admin.site.register(Photo, PhotoAdmin)
-admin.site.register(Event)
-admin.site.register(Album)
+admin.site.register(Event, EventAdmin)
+admin.site.register(Album, AlbumAdmin)
