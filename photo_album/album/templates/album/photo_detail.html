@@ -1,0 +1,45 @@
+{% load thumbnail %}
+<h1>{{ object.title }}</h1>
+<p>{{ object.description }}</p>
+
+<div id="image">
+    {% thumbnail object.picture "500x500" as im %}
+    <img src="{{ im.url }}">
+    {% endthumbnail %}
+</div> 
+
+<h2>About this image</h2>
+<table>
+    <tr>
+        <th>Camera</th>
+        <td>{{ object.camera }}</td>
+    </tr>
+    <tr>
+        <th>Lens</th>
+        <td>{{ object.lens }}</td>
+    </tr>
+    <tr>
+        <th>Shutter Speed</th>
+        <td>{{ object.shutter_speed }}</td>
+    </tr>
+    <tr>
+        <th>F Number</th>
+        <td>f/{{ object.f_number }}</td>
+    </tr>
+    <tr>
+        <th>Focal Length</th>
+        <td>{{ object.focal_length }}mm</td>
+    </tr>
+    <tr>
+        <th>ISO Speed</th>
+        <td>{{ object.iso_speed }}</td>
+    </tr>
+    <tr>
+        <th>Exposure program</th>
+        <td>{{ object.exposure_program }}</td>
+    </tr>
+    <tr>
+        <th>Metering mode</th>
+        <td>{{ object.metering_mode }}</td>
+    </tr>
+</table>
