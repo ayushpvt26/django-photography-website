@@ -32,7 +32,7 @@ def photo_detail_view(request, slug):
         context = request.GET['context']
         if context == 'album':
             album = Album.objects.get(slug=request.GET['album'])
-    except KeyError:
+    except (KeyError, Album.DoesNotExist):
         pass
 
     return render_to_response('album/photo_detail.html', {
