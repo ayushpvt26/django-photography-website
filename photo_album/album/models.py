@@ -14,11 +14,19 @@ class Event(models.Model):
     latitude = models.CharField(max_length=150, blank=True, null=True)
     longitude = models.CharField(max_length=150, blank=True, null=True)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('event-detail', (), {'slug': self.slug})
+
 class Album(models.Model):
 
     title = models.CharField(max_length=150)
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True, null=True)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('album-detail', (), {'slug': self.slug})
 
 class Photo(models.Model):
 
@@ -133,3 +141,7 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         self._read_exif()
         super(Photo, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('photo-detail', (), {'slug': self.slug})

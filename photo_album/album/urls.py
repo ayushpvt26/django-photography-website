@@ -1,7 +1,9 @@
 from django.conf.urls import patterns, url
 
-from album.views import PhotoDetailView
+from album.views import AlbumDetailView, EventDetailView, PhotoDetailView
 
 urlpatterns = patterns('',
-    url(r'^photos/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
+    url(r'^albums/(?P<slug>[\w\-]+)/$', AlbumDetailView.as_view(), name='album-detail'),
+    url(r'^events/(?P<slug>[\w\-]+)/$', EventDetailView.as_view(), name='event-detail'),
+    url(r'^photos/(?P<slug>[\w\-]+)/$', PhotoDetailView.as_view(), name='photo-detail'),
 )

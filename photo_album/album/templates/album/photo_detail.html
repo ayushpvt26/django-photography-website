@@ -43,3 +43,14 @@
         <td>{{ object.metering_mode }}</td>
     </tr>
 </table>
+
+<h3>Event</h3>
+<p>This photo was taken at <a href="{{ object.event.get_absolute_url }}">{{ object.event.title }}</a>.</p>
+
+<h3>Albums</h3>
+<p>This photo is featured in</p>
+<ul>
+    {% for album in object.albums.all %}
+    <a href="{{ album.get_absolute_url }}">{{ album.title }}</a>{% if forloop.last %}.{% else %},{% endif %}</p>
+    {% endfor %}
+</ul>
