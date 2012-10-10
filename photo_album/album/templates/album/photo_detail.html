@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% block content %}
+
+{% if album %}
+<p><a href="{{ album.get_absolute_url }}">&lt; Back to {{ album.title }}</a></p>
+{% elif object.event %}
+<p><a href="{{ object.event.get_absolute_url }}">&lt; Back to {{ object.event.title }}</a></p>
+{% else %}
+<p><a href="/">&lt; Back to Daniel Davies Photography</a></p>
+{% endif %}
+
 <h1>{{ object.title }}</h1>
 <p>{{ object.description }}</p>
 

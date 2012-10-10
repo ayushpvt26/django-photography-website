@@ -5,7 +5,7 @@
     My name is Daniel Davies and I'm an enthusiastic amateur photographer. This website exists to showcase my photos and it is specifically designed to help me get feedback on my images, improve my photography, and help my "subjects" find their faces.
 </p>
 <p>
-    I really enjoy portrait photography so a lot of these photos include people. If you're one of the people you can get in touch and I'll send you the full-size version of your image, as well as the RAW file (i.e. not photoshopped)
+    I really enjoy portrait photography so a lot of these photos include people. If you're one of the people you can get in touch and I'll send you the full-size version of your image, as well as the original image file (i.e. not photoshopped)
 </p>
 <div id="map_canvas" style="width: 680px; height: 350px;"></div>
 <h2>Albums</h2>
@@ -38,7 +38,7 @@
         mapOptions);
 
     {% for event in events %}
-    var contentString = '{{ event.title }}</br /><a href="{{ event.get_absolute_url }}">View event</a>';
+    var contentString = '<h2>{{ event.title }}</h2><p>{{ event.description }}<br /><a href="{{ event.get_absolute_url }}">View event</a></p>';
     var infowindow = new google.maps.InfoWindow({
         content: contentString
     });

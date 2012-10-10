@@ -1,3 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<p><a href="/">&lt; Back to Daniel Davies Photography</a></p>
 <h1>{{ object.title }}</h1>
 <p>{{ object.descripton }}</p>
-{% include 'album/includes/photo_list.html' %}
+{% load thumbnail %}
+<h2>Photographs</h2>
+<ul>
+    {% for photo in object.photo_set.all %}
+    <li>
+        {% thumbnail photo.picture "80x80" as im %}
+        <a href="{{ photo.get_absolute_url }}?context=album&album={{ object.slug }}">
+            <img src="{{ im.url }}">
+        </a>
+        {% endthumbnail %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
