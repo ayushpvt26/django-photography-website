@@ -11,7 +11,7 @@
         {{ node.title }}
       </a>
       <br />
-      45 photos
+      {{ node.photo_set.all.count }} photo{{ node.photo_set.all.count|pluralize }}
     </li>
   {% endfor %}
 </ul>
