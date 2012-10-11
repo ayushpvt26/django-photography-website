@@ -3,3 +3,5 @@ pil
 sorl-thumbnail
 django-disqus
 south
+mysql-python
+flup
