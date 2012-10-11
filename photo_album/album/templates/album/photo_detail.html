@@ -34,30 +34,6 @@
     <!-- AddThis Button END -->
 </div>
 
-{% if next_photo or previous_photo %}
-<div id="photo-browser">
-    <div id="previous-photo">
-        {% if previous_photo %}
-        <a href="../{{ previous_photo.slug }}">&laquo; Previous</a>
-        {% else %}
-        &laquo; Previous
-        {% endif %}
-    </div>
-    <div id="current-photo">
-    Photograph {{ current_photo_number }} of {{ collection.photo_set.all.count }}
-    </div>
-    <div id="next-photo">
-        {% if next_photo %}
-        <a href="../{{ next_photo.slug }}">Next &raquo;</a>
-        {% else %}
-        Next &raquo;
-        {% endif %}
-    </div>
-    <div class="clear-fix"></div>
-</div>
-<div class="page-divide"></div>
-{% endif %}
-
 <div id="image">
     {% thumbnail object.picture "670" as im %}
     <img src="{{ im.url }}" id="photo">
@@ -114,6 +90,29 @@
     </div>
 </div>
 <div class="page-divide"></div>
+{% if next_photo or previous_photo %}
+<div class="photo-browser">
+    <div class="previous-photo">
+        {% if previous_photo %}
+        <a href="../{{ previous_photo.slug }}">&laquo; Previous</a>
+        {% else %}
+        &laquo; Previous
+        {% endif %}
+    </div>
+    <div class="current-photo">
+    Photograph {{ current_photo_number }} of {{ collection.photo_set.all.count }}
+    </div>
+    <div class="next-photo">
+        {% if next_photo %}
+        <a href="../{{ next_photo.slug }}">Next &raquo;</a>
+        {% else %}
+        Next &raquo;
+        {% endif %}
+    </div>
+    <div class="clear-fix"></div>
+</div>
+<div class="page-divide"></div>
+{% endif %}
 {% set_disqus_url object.get_disqus_url %}
 {% disqus_show_comments %}
 {% endblock content %}
