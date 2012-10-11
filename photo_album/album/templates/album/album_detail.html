@@ -1,17 +1,8 @@
-{% extends 'base.html' %}
-{% load thumbnail %}
-{% block content %}
-<h2>{{ object.title }}</h2>
-<ul class="image-list">
-    {% for photo in object.photo_set.all %}
-    <li>
-        {% thumbnail photo.picture "170x170" crop="center" as im %}
-        <a href="{{ photo.get_absolute_url }}?context=album&album={{ object.slug }}">
-            <img src="{{ im.url }}">
-        </a>
-        {% endthumbnail %}
-    </li>
-    {% endfor %}
-</ul>
-<p>{{ object.description }}</p>
-{% endblock content %}
+{% extends 'album/photo_list.html' %}
+{% block breadcrumbs %}
+  <ol id="breadcrumbs">
+    <li><a href="/">Home</a> &raquo;</li>
+    <li><a href="#">Albums</a> &raquo;</li>
+    <li>{{ object.title }}</li>
+  </ol>
+{% endblock %}

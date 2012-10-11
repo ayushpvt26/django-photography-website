@@ -1,15 +1,61 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load disqus_tags %}
+
+{% block canonical %}<link rel="canonical" href="{{ object.get_absolute_url }}" />{% endblock canonical %}
+
 {% block content %}
 
-{% if album %}
-<p><a href="{{ album.get_absolute_url }}">&lt; Back to {{ album.title }}</a></p>
-{% elif object.event %}
-<p><a href="{{ object.event.get_absolute_url }}">&lt; Back to {{ object.event.title }}</a></p>
-{% endif %}
+{% block breadcrumbs %}
+  <ol id="breadcrumbs">
+    <li><a href="/">Home</a> &raquo; </li>
+    {% if collection %}
+    <li><a href="{{ collections_url }}">{{ collections_name }}</a> &raquo;</li>
+    <li><a href="{{ collection.get_absolute_url }}">{{ collection.title }}</a> &raquo;</li>
+    {% elif object.event %}
+    <li><a href="#">Events</a> &raquo;</li>
+    <li><a href="{{ object.event.get_absolute_url }}">{{ object.event.title }}</a> &raquo;</li>
+    {% endif %}
+    <li>{{ object.title }}</li>
+  </ol>
+{% endblock %}
 
 <h2>{{ object.title }}</h2>
-<p>{{ object.description }}</p>
+
+<div class="addthis-button-wrap">
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style ">
+    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=danux"></script>
+    <!-- AddThis Button END -->
+</div>
+
+{% if next_photo or previous_photo %}
+<div id="photo-browser">
+    <div id="previous-photo">
+        {% if previous_photo %}
+        <a href="../{{ previous_photo.slug }}">&laquo; Previous</a>
+        {% else %}
+        &laquo; Previous
+        {% endif %}
+    </div>
+    <div id="current-photo">
+    Photograph {{ current_photo_number }} of {{ collection.photo_set.all.count }}
+    </div>
+    <div id="next-photo">
+        {% if next_photo %}
+        <a href="../{{ next_photo.slug }}">Next &raquo;</a>
+        {% else %}
+        Next &raquo;
+        {% endif %}
+    </div>
+</div>
+<div class="page-divide"></div>
+{% endif %}
 
 <div id="image">
     {% thumbnail object.picture "670" as im %}
@@ -62,11 +108,9 @@
         </table>
     </div>
 </div>
-{% if album %}
-<p><a href="{{ album.get_absolute_url }}">&lt; Back to {{ album.title }}</a></p>
-{% elif object.event %}
-<p><a href="{{ object.event.get_absolute_url }}">&lt; Back to {{ object.event.title }}</a></p>
-{% endif %}
+<div class="page-divide"></div>
+{% set_disqus_url object.get_absolute_url %}
+{% disqus_show_comments %}
 {% endblock content %}
 
 {% block js %}

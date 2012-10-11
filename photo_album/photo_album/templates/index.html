@@ -1,16 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<p>
-    I'm Daniel and am an enthusiastic amateur photographer. I really enjoy portrait photography so a lot of these photos include people. If you're one of the people you can get in touch and I'll send you the full-size version of your image, as well as the original image file (i.e. not photoshopped)
-</p>
-<p>
-    I'm pretty inexperienced but I hope to use this website to get better. Every image is published with the camera's settings so I can learn what works and what doesn't. If you have any advice I'd gladly hear it.
-</p>
-<p>
-    <strong><em>Would you like your photo taken?</em></strong><br />I'm looking for people to practice on. Especially cosplayers and bands. Just get in touch, we'll sort something out.
-</p>
-<div class="clear-fix"></div>
-<div class="split">
+<div class="split clear-fix">
   <h2>Albums</h2>
   {% with nodes=albums %}
   {% include "album/includes/album_list.html" %}
@@ -22,7 +12,7 @@
   {% include "album/includes/album_list.html" %}
   {% endwith %}
 </div>
-<div class="clear-fix"></div>
+<div class="clear-fix page-divide"></div>
 <h2>Events Map</h2>
 <div id="map_canvas" style="width: 950px; height: 400px;"></div>
 {% endblock content %}

@@ -1,4 +1,4 @@
-from django.views.generic import DetailView
+from django.views.generic import DetailView, View
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.shortcuts import render_to_response
@@ -23,19 +23,52 @@ class EventDetailView(DetailView):
         object = super(EventDetailView, self).get_object()
         return object
 
-def photo_detail_view(request, slug):
-        
-    photo = get_object_or_404(Photo, slug=slug)
+class EventSlideshowView(EventDetailView):
 
-    album = None
-    try:
-        context = request.GET['context']
-        if context == 'album':
-            album = Album.objects.get(slug=request.GET['album'])
-    except (KeyError, Album.DoesNotExist):
-        pass
+    template_name = "album/slideshow.html"
 
-    return render_to_response('album/photo_detail.html', {
-        'object' : photo,
-        'album' : album
-    }, context_instance=RequestContext(request))
+class AlbumSlideshowView(AlbumDetailView):
+
+    template_name = "album/slideshow.html"
+
+class PhotoDetailView(View):
+
+    def get(self, request, *args, **kwargs):
+        photo = get_object_or_404(Photo, slug=kwargs['slug'])
+
+        if kwargs['collection_type'] == 'events':
+            collection = get_object_or_404(Event, slug=kwargs['collection_slug'])
+            collections_url = '#'
+            collections_name = 'Events'
+        elif kwargs['collection_type'] == 'albums':
+            collection = get_object_or_404(Album, slug=kwargs['collection_slug'])
+            collections_url = '#'
+            collections_name = 'Albums'
+        else:
+            collection = None
+            collections_url = None
+            collections_name = None
+
+        previous_photo = None
+        next_photo = None
+
+        if collection:
+            photo_position = list(collection.photo_set.all()).index(photo)
+            try:
+                previous_photo = collection.photo_set.all()[photo_position-1]
+            except (IndexError, AssertionError):
+                pass
+            try:
+                next_photo = collection.photo_set.all()[photo_position+1]
+            except (IndexError):
+                pass
+
+        return render_to_response('album/photo_detail.html', {
+            'object' : photo,
+            'collection' : collection,
+            'collections_url' : collections_url,
+            'collections_name' : collections_name,
+            'previous_photo' : previous_photo,
+            'next_photo' : next_photo,
+            'current_photo_number' : photo_position +1
+        }, context_instance=RequestContext(request))

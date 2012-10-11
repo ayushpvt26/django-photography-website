@@ -3,9 +3,10 @@
   <head>
     <title>{% block title %}{% endblock title %}</title>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Cantarell:700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Trocchi' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/layout.css" />
     {% block js %}{% endblock js %}
+    {% block canonical %}{% endblock canonical %}
   </head>
   <body {% block extend_body %}{% endblock extend_body %}>
     <div id="container">

@@ -101,6 +101,9 @@ class Photo(models.Model):
     event = models.ForeignKey(Event, blank=True, null=True)
     albums = models.ManyToManyField(Album, blank=True, null=True)
 
+    class Meta():
+        ordering = ['-date_created']
+
     def _read_exif(self):
         # Reads EXIF from the photo
         # See: http://www.exif.org/specifications.html

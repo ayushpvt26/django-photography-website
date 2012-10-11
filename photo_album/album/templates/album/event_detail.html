@@ -1,35 +1,8 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<p><a href="/">&lt; Back to Daniel Davies Photography</a></p>
-<h1>{{ object.title }}</h1>
-<p>{{ object.descripton }}</p>
-
-{% include 'album/includes/photo_list.html' %}
-
-<div id="map_canvas" style="width:300px; height:100px"></div>
-{% endblock content %}
-
-{% block js %}
-<script type="text/javascript"
-  src="http://maps.googleapis.com/maps/api/js?key={{ settings.MAP_API_KEY }}&sensor=false">
-</script>
-<script type="text/javascript">
-  function initialize() {
-    var mapOptions = {
-      center: new google.maps.LatLng({{ object.latitude }}, {{ object.longitude }}),
-      zoom: 5,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("map_canvas"),
-        mapOptions);
-
-    var marker = new google.maps.Marker({
-      position: new google.maps.LatLng({{ object.latitude }}, {{ object.longitude }}),
-      map: map
-    });
-  }
-</script>
-{% endblock js %}
-
-{% block extend_body %}onload="initialize()"{% endblock extend_body %}
+{% extends 'album/photo_list.html' %}
+{% block breadcrumbs %}
+  <ol id="breadcrumbs">
+    <li><a href="/">Home</a> &raquo;</li>
+    <li><a href="#">Events</a> &raquo;</li>
+    <li>{{ object.title }}</li>
+  </ol>
+{% endblock %}

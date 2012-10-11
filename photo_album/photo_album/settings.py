@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'sorl.thumbnail',
     'photo_album',
+    'disqus',
     'album',
 )
 
@@ -156,5 +157,8 @@ LOGGING = {
     }
 }
 
-MAP_API_KEY = 'AIzaSyADKWJx1XBGYuf4BnL67nnZ4K9eZxu_Zrs'
+MAP_API_KEY = ''
 
+DISQUS_API_KEY = ''
+
+DISQUS_WEBSITE_SHORTNAME = ''
