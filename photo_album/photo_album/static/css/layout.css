@@ -123,11 +123,7 @@ div#image {
 
 div#image img {
     float: left;
-    margin-right: 10px;
-}
-
-div#image #photo {
-    border: 10px solid #000;
+    margin-right: 20px;
 }
 
 div#image div#about-image {
@@ -146,6 +142,7 @@ div#image div#about-image h3 {
 div#image div#about-image table {
     font-size: 9pt;
     text-align: left;
+    width: 100%;
 }
 
 div#image div#about-image table td {
