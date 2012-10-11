@@ -5,7 +5,7 @@
     <li>
         {% thumbnail photo.picture "80x80" as im %}
         <a href="{{ photo.get_absolute_url }}">
-            <img src="{{ im.url }}">
+            <img src="{{ im.url }}" />
         </a>
         {% endthumbnail %}
     </li>

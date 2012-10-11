@@ -46,6 +46,10 @@ class Event(models.Model):
         except IndexEror:
             return None
 
+    @property
+    def preview_images(self):
+        return self.photo_set.all()[0:5]
+
 class Album(models.Model):
 
     title = models.CharField(max_length=150)
@@ -189,6 +193,9 @@ class Photo(models.Model):
         except KeyError:
             pass
 
+    @property
+    def get_disqus_url(self):
+        return 'http://photos.danux.co.uk%s' % self.get_absolute_url()
 
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
