@@ -42,7 +42,7 @@
     {% endthumbnail %}
     <div id="about-image">
         {% if object.event %}
-            <img id="photo-map" src="http://maps.googleapis.com/maps/api/staticmap?center={{ object.event.latitude }},{{ object.event.longitude }}&zoom=6&size=270x100&maptype=roadmap&markers=color:red%7Ccolor:red%7Clabel:C%7C{{ object.event.latitude }},{{ object.event.longitude }}&sensor=false" />
+            <img id="photo-map" src="http://maps.googleapis.com/maps/api/staticmap?center={{ object.event.latitude }},{{ object.event.longitude }}&zoom=6&size=270x100&maptype=roadmap&markers=color:red%7Ccolor:red%7C{{ object.event.latitude }},{{ object.event.longitude }}&sensor=false" />
         {% endif %}
         {% if object.event or object.albums.all %}
         <p>This photo{% if object.event %} was taken at <a href="{{ object.event.get_absolute_url }}">{{ object.event.title }}</a>{% if object.albums.all %} and{% endif %}{% endif %}{% if object.albums.all %} is featured in the
