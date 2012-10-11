@@ -43,7 +43,7 @@ class Event(models.Model):
     def cover_image(self):
         try:
             return self.photo_set.all()[0]
-        except IndexEror:
+        except IndexError:
             return None
 
     @property
