@@ -13,8 +13,8 @@
       <ul id="navigation">
         <li><a href="/">Home</a></li>
         <li><a href="#">About</a></li>
-        <li><a href="#">Albums</a></li>
-        <li><a href="#">Events</a></li>
+        <li><a href="{% url album-list %}">Albums</a></li>
+        <li><a href="{% url event-list %}">Events</a></li>
       </ul>
       <h1>Daniel Davies Photography</h1>
       {% block content %}{% endblock content %}

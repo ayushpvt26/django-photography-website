@@ -2,7 +2,7 @@
 {% block breadcrumbs %}
   <ol id="breadcrumbs">
     <li><a href="/">Home</a> &raquo;</li>
-    <li><a href="#">Events</a> &raquo;</li>
+    <li><a href="{% url event-list %}">Events</a> &raquo;</li>
     <li>{{ object.title }}</li>
   </ol>
 {% endblock %}

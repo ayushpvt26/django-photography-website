@@ -1,11 +1,18 @@
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, View, ListView
 from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from album.models import Album, Event, Photo
 
+
+class AlbumListView(ListView):    
+    model = Album
+
+class EventListView(ListView):    
+    model = Event
 
 class AlbumDetailView(DetailView):
 
@@ -38,11 +45,11 @@ class PhotoDetailView(View):
 
         if kwargs['collection_type'] == 'events':
             collection = get_object_or_404(Event, slug=kwargs['collection_slug'])
-            collections_url = '#'
+            collections_url = reverse('event-list')
             collections_name = 'Events'
         elif kwargs['collection_type'] == 'albums':
             collection = get_object_or_404(Album, slug=kwargs['collection_slug'])
-            collections_url = '#'
+            collections_url = reverse('album-list')
             collections_name = 'Albums'
         else:
             collection = None
