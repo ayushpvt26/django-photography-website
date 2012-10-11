@@ -17,17 +17,9 @@ class AlbumDetailView(DetailView):
 
     queryset = Album.objects.all()
 
-    def get_object(self):
-        object = super(AlbumDetailView, self).get_object()
-        return object
-
 class EventDetailView(DetailView):
 
     queryset = Event.objects.all()
-
-    def get_object(self):
-        object = super(EventDetailView, self).get_object()
-        return object
 
 class EventSlideshowView(EventDetailView):
 
