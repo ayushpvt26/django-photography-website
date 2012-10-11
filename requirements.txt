@@ -1,5 +1,5 @@
 django==1.4.1
 pil
 sorl-thumbnail
-django-discus
+django-disqus
 south
