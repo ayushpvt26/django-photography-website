@@ -8,13 +8,21 @@ class PhotoAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
 
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    fields = ('picture', 'title', 'slug', 'albums')
+
 class EventAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
+    inline = [PhotoInline,]
 
 class AlbumAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
+
+class PhotoInline(admin.TabularInline):
+    model = Photo
 
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Event, EventAdmin)
