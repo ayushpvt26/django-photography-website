@@ -15,7 +15,7 @@ class PhotoInline(admin.TabularInline):
 class EventAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
-    inline = [PhotoInline,]
+    inlines = [PhotoInline,]
 
 class AlbumAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
