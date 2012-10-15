@@ -7,8 +7,8 @@ body {
 }
 
 a {
-    color: #4F97AF;
-    text-decoration: none;
+    color: #333;
+    text-decoration: underline;
 }
 
 p {
@@ -44,9 +44,15 @@ div.split {
     float: left;
 }
 
+h1 a {
+    color: #1F4C72;
+    text-decoration: none;
+
+}
+
 h1, h2, h3 {
     margin: 0 0 10px 0;
-    color: #4F97AF;
+    color: #8DB6D7;
     float: left;
     font-family: 'Trocchi', serif;
     font-weight: normal;
@@ -75,6 +81,10 @@ ul#navigation li {
     padding: 0 2pt;
     margin: 0;
     font-size: 15pt;
+}
+
+ul#navigation li a {
+    text-decoration: none;
 }
 
 .thumbnail-list {
@@ -204,6 +214,7 @@ div.page-divide {
     background-image: url('../img/slideshow.png');
     background-repeat: no-repeat;
     text-indent: 37px;
+    text-decoration: none;
 }
 
 ul.bubble-images {
