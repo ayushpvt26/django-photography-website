@@ -1,5 +1,6 @@
 import string
 import urllib
+from datetime import datetime
 
 from PIL import Image, ExifTags
 
@@ -50,6 +51,9 @@ class Event(models.Model):
     def preview_images(self):
         return self.photo_set.all()[0:5]
 
+    class Meta:
+        ordering = ('-date_created',)
+
 class Album(models.Model):
 
     title = models.CharField(max_length=150)
@@ -72,6 +76,9 @@ class Album(models.Model):
             return self.photo_set.all()[0]
         except IndexEror:
             return None
+
+    class Meta:
+        ordering = ('title',)
 
 class Photo(models.Model):
 
@@ -97,7 +104,7 @@ class Photo(models.Model):
     iso_speed = models.CharField(max_length=150, blank=True, null=True)
     exposure_program = models.CharField(max_length=150, blank=True, null=True)
     metering_mode = models.CharField(max_length=150, blank=True, null=True, db_index=True)
-    date_time_taken = models.CharField(max_length=150)
+    date_time_taken = models.DateTimeField(max_length=150)
 
     # Can belong to one event and/or many albums
     event = models.ForeignKey(Event, blank=True, null=True)
@@ -187,7 +194,8 @@ class Photo(models.Model):
 
         # Determine date time taken
         try:
-            self.date_time_taken = exif_data[36867]
+            #   2012:09:29 11:44:19
+            self.date_time_taken = datetime.strptime(exif_data[36867], "%Y:%m:%d %H:%M:%S") 
         except KeyError:
             pass
 
