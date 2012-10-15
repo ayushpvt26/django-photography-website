@@ -49,6 +49,7 @@ class PhotoDetailView(View):
 
         previous_photo = None
         next_photo = None
+        photo_position = 0
 
         if collection:
             photo_position = list(collection.photo_set.all()).index(photo)
@@ -68,5 +69,5 @@ class PhotoDetailView(View):
             'collections_name' : collections_name,
             'previous_photo' : previous_photo,
             'next_photo' : next_photo,
-            'current_photo_number' : photo_position +1
+            'current_photo_number' : photo_position + 1
         }, context_instance=RequestContext(request))
