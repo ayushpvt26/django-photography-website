@@ -11,7 +11,8 @@
   <body {% block extend_body %}{% endblock extend_body %}>
     <div id="container">
       <ul id="navigation">
-        <li><a href="{% url album-list %}">Albums</a></li>
+        <li><a href="{% url about-page %}">About</a></li>
+        <li>&bull;&nbsp;<a href="{% url album-list %}">Albums</a></li>
         <li>&bull;&nbsp;<a href="{% url event-list %}">Events</a></li>
       </ul>
       <h1><a href="/">Daniel Davies' Photographs</a></h1>
