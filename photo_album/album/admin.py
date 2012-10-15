@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django import forms
+
 from album.models import Photo, Event, Album
 
 
@@ -7,22 +9,37 @@ class PhotoAdmin(admin.ModelAdmin):
     fields = ('picture', 'title', 'slug', 'description', 'event', 'albums')
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
+    list_display = ('title', 'order',)
+    list_editable = ('order',)
+    list_filter = ('event',)
 
-class PhotoInline(admin.TabularInline):
+    class Media:
+        js =(
+            'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js',
+            '/static/js/jquery.ui.base.js',
+            '/static/js/sortable-list.js',
+        )
+
+class PhotoInline(admin.StackedInline):
     model = Photo
-    fields = ('picture', 'title', 'slug', 'albums')
+    fields = ('picture', 'title', 'slug', 'albums', 'order')
+    prepopulated_fields = {"slug": ("title",)}
 
 class EventAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
-    inlines = [PhotoInline,]
+    inlines = (PhotoInline,)
+    
+    class Media:
+        js = (
+            'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js',
+            '/static/js/jquery.ui.base.js',
+            '/static/js/menu-sort.js',
+        )
 
 class AlbumAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
-
-class PhotoInline(admin.TabularInline):
-    model = Photo
 
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Event, EventAdmin)

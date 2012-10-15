@@ -82,9 +82,7 @@ class Photo(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True, null=True)
-
-    # Keep all the data
-    exif_raw = models.TextField(null=True, blank=True)
+    order = models.IntegerField(blank=True, null=True)
 
     # Internal stuff
     date_created = models.DateTimeField(auto_now_add=True)
@@ -104,9 +102,9 @@ class Photo(models.Model):
     # Can belong to one event and/or many albums
     event = models.ForeignKey(Event, blank=True, null=True)
     albums = models.ManyToManyField(Album, blank=True, null=True)
-
-    class Meta():
-        ordering = ['-date_created']
+    
+    class Meta:
+        ordering = ('order',)
 
     def _read_exif(self):
         # Reads EXIF from the photo
