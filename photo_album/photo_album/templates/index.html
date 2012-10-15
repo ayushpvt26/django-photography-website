@@ -36,16 +36,16 @@
 
     {% for event in events %}
     var contentString = '<div class="bubble"><h2>{{ event.title }}</h2><ul class="bubble-images">{% for photo in event.preview_images %}<li><a href="{{ event.get_absolute_url }}{{ photo.slug }}/">{% thumbnail photo.picture "80x80" crop="center" as im %}<img src="{{ im.url }}" />{% endthumbnail %}</a></li>{% endfor %}</ul><p><a href="{{ event.get_absolute_url }}">View event</a> &bull; <a href="{{ event.get_absolute_url }}slideshow/">Watch slideshow</a></p></div>';
-    var infowindow = new google.maps.InfoWindow({
+    var infowindow_{{ event.pk }} = new google.maps.InfoWindow({
         content: contentString
     });
-    var marker = new google.maps.Marker({
+    var marker_{{ event.pk }} = new google.maps.Marker({
       position: new google.maps.LatLng({{ event.latitude }}, {{ event.longitude }}),
       map: map,
       title: '{{ event.title }}',
     });
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map,marker);
+    google.maps.event.addListener(marker_{{ event.pk }}, 'click', function() {
+      infowindow_{{ event.pk }}.open(map,marker_{{ event.pk }});
     });
     {% endfor %}
   }
