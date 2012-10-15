@@ -104,7 +104,7 @@ class Photo(models.Model):
     iso_speed = models.CharField(max_length=150, blank=True, null=True)
     exposure_program = models.CharField(max_length=150, blank=True, null=True)
     metering_mode = models.CharField(max_length=150, blank=True, null=True, db_index=True)
-    date_time_taken = models.DateTimeField(max_length=150)
+    date_time_taken = models.DateTimeField(max_length=150, blank=True, null=True)
 
     # Can belong to one event and/or many albums
     event = models.ForeignKey(Event, blank=True, null=True)
