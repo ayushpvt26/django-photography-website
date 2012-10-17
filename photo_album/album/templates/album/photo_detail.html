@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% load disqus_tags %}
+{% load shorty_tags %}
 
 {% block title %}{{ object.title }}{% endblock %}
 
@@ -26,12 +27,12 @@
 
 <div class="addthis-button-wrap">
     <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style ">
+    <div class="addthis_toolbox addthis_default_style " addthis:url="{% short_url %}">
     <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
     <a class="addthis_button_tweet"></a>
     <a class="addthis_counter addthis_pill_style"></a>
     </div>
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
     <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=danux"></script>
     <!-- AddThis Button END -->
 </div>
@@ -50,6 +51,10 @@
         {% if forloop.last %}and {% elif not forloop.first %}, {% endif %}<a href="{{ album.get_absolute_url }}">{{ album.title }}</a>
         {% endfor %} album{{ object.albums.all.count|pluralize:"s" }}{% endif %}.</p>
         {% endif %}
+        <h3>Share Code</h3>
+        <p>
+            <input class="short-url" value="{% short_url %}" readonly="readonly" />
+        </p>
         <h3>Camera Information</h3>
         <table>
             <tr>

@@ -5,3 +5,4 @@ django-disqus
 south
 mysql-python
 flup
+git+https://github.com/danux/standalone-url-shortener.git#egg=shorty

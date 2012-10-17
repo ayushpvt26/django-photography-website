@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+{% load shorty_tags %}<!DOCTYPE html>
 <html>
   <head>
     <title>{% block title %}{% endblock title %}</title>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Trocchi' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/layout.css" />
+    <link rel="shortlink" type="text/html" href="{% short_url %}">
     {% block js %}{% endblock js %}
     {% block canonical %}{% endblock canonical %}
   </head>

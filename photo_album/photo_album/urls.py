@@ -21,6 +21,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^$', 'photo_album.views.index'),
+
+    url(r'^s/', include('shorty.urls', namespace='shorty')),
 )
 
 if settings.DEBUG:

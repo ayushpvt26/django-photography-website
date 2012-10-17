@@ -4,7 +4,7 @@ from datetime import datetime
 
 from PIL import Image, ExifTags
 
-from django.db.models.signals import pre_save
+from django.db.models.signals import post_save
 from django.db import models
 
 # TODO: Refactor event and album in to generic image collection class

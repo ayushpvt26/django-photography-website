@@ -97,6 +97,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
+    "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
     "photo_album.context_processors.site_settings"
 )
@@ -138,6 +139,7 @@ INSTALLED_APPS = (
     'photo_album',
     'disqus',
     'album',
+    'shorty',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -174,3 +176,4 @@ MAP_API_KEY = ''
 DISQUS_API_KEY = ''
 
 DISQUS_WEBSITE_SHORTNAME = ''
+
