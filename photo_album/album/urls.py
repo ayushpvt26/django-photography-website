@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 
 from album.views import AlbumDetailView, EventDetailView, EventSlideshowView, AlbumSlideshowView, PhotoDetailView, AlbumListView, EventListView
 
+
 urlpatterns = patterns('',
     url(r'^albums/$', AlbumListView.as_view(), name='album-list'),
     url(r'^events/$', EventListView.as_view(), name='event-list'),

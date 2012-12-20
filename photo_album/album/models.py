@@ -1,34 +1,42 @@
-import string
-import urllib
+import string, urllib
 from datetime import datetime
 
 from PIL import Image, ExifTags
 
+from django.contrib.sites.models import get_current_site
+from django.conf import settings
 from django.db.models.signals import post_save
 from django.db import models
 
-# TODO: Refactor event and album in to generic image collection class
+
 class Event(models.Model):
 
     title = models.CharField(max_length=150)
+
     slug = models.SlugField(unique=True)
+
     description = models.TextField(blank=True, null=True)
 
     location = models.CharField(max_length=255)
+
     latitude = models.CharField(max_length=150, blank=True, null=True)
+    
     longitude = models.CharField(max_length=150, blank=True, null=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
+    
     date_updated = models.DateTimeField(auto_now=True)
 
     @models.permalink
     def get_absolute_url(self):
+
         return ('event-detail', (), {'slug': self.slug})
 
     def _get_lat_long(self):
         url = 'http://maps.google.com/maps/geo?q=%s&output=csv&sensor=false' % self.location
         feed = urllib.urlopen(url)
         (status, accuracy, latitude, longitude) = string.split(feed.read(), ',')
+        
         if int(status) == 200:
             self.latitude = latitude
             self.longitude = longitude
@@ -54,13 +62,17 @@ class Event(models.Model):
     class Meta:
         ordering = ('-date_created',)
 
+
 class Album(models.Model):
 
     title = models.CharField(max_length=150)
+
     slug = models.SlugField(unique=True)
+
     description = models.TextField(blank=True, null=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
+
     date_updated = models.DateTimeField(auto_now=True)
 
     @models.permalink
@@ -80,6 +92,7 @@ class Album(models.Model):
     class Meta:
         ordering = ('title',)
 
+
 class Photo(models.Model):
 
     # This is the most important bit!
@@ -87,31 +100,61 @@ class Photo(models.Model):
 
     # Meta data
     title = models.CharField(max_length=150)
+
     slug = models.SlugField(unique=True)
+
     description = models.TextField(blank=True, null=True)
+
     order = models.IntegerField(blank=True, null=True)
 
     # Internal stuff
     date_created = models.DateTimeField(auto_now_add=True)
+
     date_updated = models.DateTimeField(auto_now=True)
 
     # Parsed EXIF data - Just the bits I'm interested in, the full raw is still there
     camera = models.CharField(max_length=150, blank=True, null=True, db_index=True)
+
     lens = models.CharField(max_length=150, blank=True, null=True, db_index=True)
+
     shutter_speed = models.CharField(max_length=150, blank=True, null=True)
+
     f_number = models.CharField(max_length=150, blank=True, null=True)
+
     focal_length = models.CharField(max_length=150, blank=True, null=True)
+
     iso_speed = models.CharField(max_length=150, blank=True, null=True)
+
     exposure_program = models.CharField(max_length=150, blank=True, null=True)
+
     metering_mode = models.CharField(max_length=150, blank=True, null=True, db_index=True)
+
     date_time_taken = models.DateTimeField(max_length=150, blank=True, null=True)
 
     # Can belong to one event and/or many albums
     event = models.ForeignKey(Event, blank=True, null=True)
+    
     albums = models.ManyToManyField(Album, blank=True, null=True)
     
     class Meta:
         ordering = ('order',)
+
+    def __unicode__(self):
+        return self.title
+
+    @property
+    def get_disqus_url(self):
+        site = Site.objects.get(pk=settings.SITE_ID)
+        return 'http://%s%s' % (site.domain, self.get_absolute_url()
+
+    def save(self, *args, **kwargs):
+        super(Photo, self).save(*args, **kwargs)
+        self._read_exif()
+        super(Photo, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('photo-detail', (), {'slug': self.slug})
 
     def _read_exif(self):
         # Reads EXIF from the photo
@@ -194,23 +237,7 @@ class Photo(models.Model):
 
         # Determine date time taken
         try:
-            #   2012:09:29 11:44:19
+            # e.g. 2012:09:29 11:44:19
             self.date_time_taken = datetime.strptime(exif_data[36867], "%Y:%m:%d %H:%M:%S") 
         except KeyError:
             pass
-
-    @property
-    def get_disqus_url(self):
-        return 'http://photos.danux.co.uk%s' % self.get_absolute_url()
-
-    def save(self, *args, **kwargs):
-        super(Photo, self).save(*args, **kwargs)
-        self._read_exif()
-        super(Photo, self).save(*args, **kwargs)
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ('photo-detail', (), {'slug': self.slug})
-
-    def __unicode__(self):
-        return self.title

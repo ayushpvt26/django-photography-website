@@ -1,33 +1,40 @@
-from django.views.generic import DetailView, View, ListView
-from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.views.generic import DetailView, View, ListView
 
 from album.models import Album, Event, Photo
 
 
-class AlbumListView(ListView):    
+class AlbumListView(ListView):
+
     model = Album
 
-class EventListView(ListView):    
+
+class EventListView(ListView): 
+
     model = Event
+
 
 class AlbumDetailView(DetailView):
 
     queryset = Album.objects.all()
 
+
 class EventDetailView(DetailView):
 
     queryset = Event.objects.all()
+
 
 class EventSlideshowView(EventDetailView):
 
     template_name = "album/slideshow.html"
 
+
 class AlbumSlideshowView(AlbumDetailView):
 
     template_name = "album/slideshow.html"
+
 
 class PhotoDetailView(View):
 
@@ -57,6 +64,7 @@ class PhotoDetailView(View):
                 previous_photo = collection.photo_set.all()[photo_position-1]
             except (IndexError, AssertionError):
                 pass
+
             try:
                 next_photo = collection.photo_set.all()[photo_position+1]
             except (IndexError):

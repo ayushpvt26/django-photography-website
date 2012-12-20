@@ -1,5 +1,5 @@
 import os
-# Django settings for photo_album project.
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -176,4 +176,3 @@ MAP_API_KEY = ''
 DISQUS_API_KEY = ''
 
 DISQUS_WEBSITE_SHORTNAME = ''
-
