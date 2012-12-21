@@ -86,7 +86,7 @@ class Album(models.Model):
     def cover_image(self):
         try:
             return self.photo_set.all()[0]
-        except IndexEror:
+        except IndexError:
             return None
 
     class Meta:
@@ -145,7 +145,7 @@ class Photo(models.Model):
     @property
     def get_disqus_url(self):
         site = Site.objects.get(pk=settings.SITE_ID)
-        return 'http://%s%s' % (site.domain, self.get_absolute_url()
+        return 'http://%s%s' % (site.domain, self.get_absolute_url())
 
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
