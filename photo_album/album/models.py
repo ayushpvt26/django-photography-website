@@ -3,7 +3,7 @@ from datetime import datetime
 
 from PIL import Image, ExifTags
 
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.models import Site
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.db import models
