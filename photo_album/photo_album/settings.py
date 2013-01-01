@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'photo_album',
     'disqus',
-    'album',
+    'apps.album',
     'shorty',
 )
 

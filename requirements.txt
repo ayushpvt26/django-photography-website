@@ -1,8 +1,9 @@
-django==1.4.1
-pil
-sorl-thumbnail
-django-disqus
-south
-mysql-python
-flup
-git+https://github.com/danux/standalone-url-shortener.git#egg=shorty
+Django==1.4.1
+PIL==1.1.7
+South==0.7.6
+django-disqus==0.4.1
+django-tagging==0.3.1
+pyexif==0.2.1
+sorl-thumbnail==11.12
+wsgiref==0.1.2
+git+https://github.com/danux/django-shorty.git#egg=shorty

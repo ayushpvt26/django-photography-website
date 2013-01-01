@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from album.models import Album, Event
+from apps.album.models import Album, Event
 
 
 def index(request):

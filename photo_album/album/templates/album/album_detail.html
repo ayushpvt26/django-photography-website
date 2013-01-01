@@ -1,8 +1,0 @@
-{% extends 'album/photo_list.html' %}
-{% block breadcrumbs %}
-  <ol id="breadcrumbs">
-    <li><a href="/">Home</a> &raquo;</li>
-    <li><a href="{% url album-list %}">Albums</a> &raquo;</li>
-    <li>{{ object.title }}</li>
-  </ol>
-{% endblock %}

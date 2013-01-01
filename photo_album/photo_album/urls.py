@@ -9,7 +9,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'photo_album.views.home', name='home'),
-    url(r'^gallery/', include('album.urls')),
+    url(r'^gallery/', include('apps.album.urls')),
 
     url(r'^about/', TemplateView.as_view(template_name="about.html"), name="about-page"),
 

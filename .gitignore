@@ -6,3 +6,4 @@ settings_local.py
 db.sqlite
 media
 ./static
+.DS_Store
