@@ -88,7 +88,7 @@ class PhotoDetailView(View):
             )
         else:
             return render_to_response(
-                'album/photo_detail.html' % collections_name, 
+                'album/photo_detail.html',
                 context, 
                 context_instance=RequestContext(request)
             )
