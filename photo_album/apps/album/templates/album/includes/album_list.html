@@ -1,6 +1,6 @@
 {% load thumbnail %}
 {% for node in nodes %}
-<div class="span4 album-list">
+<div class="span4 album-list {% if forloop.counter|divisibleby:"3" %}clear{% endif %}">
   <h3>{{ node.title }}</h3>
   <p>
     {% thumbnail node.cover_image.picture "180x180" crop="center" as im %}
