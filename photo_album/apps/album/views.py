@@ -36,59 +36,71 @@ class AlbumSlideshowView(AlbumDetailView):
     template_name = "album/slideshow.html"
 
 
-class PhotoDetailView(View):
+class PhotoDetailView(DetailView):
+    '''
+    Base photo view. Subclassed for context specific photo views.
+    '''
 
-    def get(self, request, *args, **kwargs):
-        photo = get_object_or_404(Photo, slug=kwargs['slug'])
+    model = Photo
 
-        if kwargs['collection_type'] == 'events':
-            collection = get_object_or_404(Event, slug=kwargs['collection_slug'])
-            collections_url = reverse('event-list')
-            collections_name = 'event'
-        elif kwargs['collection_type'] == 'albums':
-            collection = get_object_or_404(Album, slug=kwargs['collection_slug'])
-            collections_url = reverse('album-list')
-            collections_name = 'album'
-        else:
-            collection = None
-            collections_url = None
-            collections_name = None
-
-        previous_photo = None
-        next_photo = None
+    def get_context_data(self, **kwargs):
+        '''
+        Add a paginator to the context. The paginator is based 
+        off the query set and will paginate photos within albums
+        or events if possible.
+        '''
+        context = super(PhotoDetailView, self).get_context_data(**kwargs)
         photo_position = 0
+        
+        photo_position = list(self.get_queryset()).index(self.get_object())
+        try:
+            previous_photo = self.get_queryset()[photo_position-1]
+        except (IndexError, AssertionError):
+            previous_photo = None
 
-        if collection:
-            photo_position = list(collection.photo_set.all()).index(photo)
-            try:
-                previous_photo = collection.photo_set.all()[photo_position-1]
-            except (IndexError, AssertionError):
-                pass
+        try:
+            next_photo = self.get_queryset()[photo_position+1]
+        except (IndexError):
+            next_photo = None
 
-            try:
-                next_photo = collection.photo_set.all()[photo_position+1]
-            except (IndexError):
-                pass
-
-        context = {
-            'object' : photo,
-            'collection' : collection,
-            'collections_url' : collections_url,
-            'collections_name' : collections_name,
+        additional_context = {
             'previous_photo' : previous_photo,
             'next_photo' : next_photo,
-            'current_photo_number' : photo_position + 1
+            'current_photo_number' : photo_position + 1,
+            'total_photos' : self.get_queryset().count
         }
+        return dict(context.items() + additional_context.items())
 
-        if collections_name is not None:
-            return render_to_response(
-                'album/%s_photo_detail.html' % collections_name, 
-                context, 
-                context_instance=RequestContext(request)
-            )
-        else:
-            return render_to_response(
-                'album/photo_detail.html',
-                context, 
-                context_instance=RequestContext(request)
-            )
+    def get_queryset(self):
+        '''
+        Sub-classes will return a subset of their own photos if a collection
+        is set.
+        '''
+        try:
+            return self.collection.photo_set.all()
+        except AttributeError:
+            return super(PhotoDetailView, self).get_queryset()
+
+
+class AlbumPhotoDetailView(PhotoDetailView):
+    '''
+    Photos when viewed in the context of an album.
+    '''
+    
+    template_name = 'album/album_photo_detail.html'
+
+    def get(self, *args, **kwargs):
+        self.collection = get_object_or_404(Album, slug=kwargs['collection_slug'])
+        return super(AlbumPhotoDetailView, self).get(*args, **kwargs)
+
+
+class EventPhotoDetailView(PhotoDetailView):
+    '''
+    Photos when viewed in the context of an event.
+    '''
+    
+    template_name = 'album/event_photo_detail.html'
+
+    def get(self, *args, **kwargs):
+        self.collection = get_object_or_404(Event, slug=kwargs['collection_slug'])
+        return super(EventPhotoDetailView, self).get(*args, **kwargs)
