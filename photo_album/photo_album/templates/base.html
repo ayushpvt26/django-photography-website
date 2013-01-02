@@ -9,7 +9,7 @@
 
     <!-- Le styles -->
     <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
-    <!--<link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">-->
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -32,13 +32,29 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Daniel Davies' Photographs</a>
+          <a class="brand" href="/">Daniel Davies' Photographs</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li{% block home-active %}{% endblock %}><a href="/">Home</a></li>
               <li{% block about-active %}{% endblock %}><a href="{% url about-page %}">About</a></li>
-              <li{% block albums-active %}{% endblock %}><a href="{% url album-list %}">Albums</a></li>
-              <li{% block events-active %}{% endblock %}><a href="{% url event-list %}">Events</a></li>
+              <li class="dropdown{% block albums-active %}{% endblock %}">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Albums <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  {% for nav_album in album_nav_lsit %}
+                    <li><a href="{{ nav_album.get_absolute_url }}">{{ nav_album.title }}</a></li>
+                  {% endfor %}
+                  <li><a href="{% url album-list %}">List albums&hellip;</a></li>
+                </ul>
+              </li>
+              <li class="dropdown{% block events-active %}{% endblock %}">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  {% for nav_event in event_nav_lsit %}
+                    <li><a href="{{ nav_event.get_absolute_url }}">{{ nav_event.title }}</a></li>
+                  {% endfor %}
+                  <li><a href="{% url event-list %}">List events&hellip;</a></li>
+                </ul>
+              </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -74,5 +90,19 @@
       })();
     </script>
     {% block js %}{% endblock js %}
+    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-transition.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-alert.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-scrollspy.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-tab.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-tooltip.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-popover.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-button.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-collapse.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-carousel.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-typeahead.js"></script>
+
   </body>
 </html>

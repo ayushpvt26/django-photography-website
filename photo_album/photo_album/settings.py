@@ -99,7 +99,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-    "photo_album.context_processors.site_settings"
+    "photo_album.context_processors.site_settings",
+    "apps.album.context_processors.nav_lists"
 )
 
 MIDDLEWARE_CLASSES = (

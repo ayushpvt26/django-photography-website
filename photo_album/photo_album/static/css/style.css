@@ -2,8 +2,12 @@
 Custom styles
 */
 body {
-padding-top: 60px;
-padding-bottom: 40px;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.addthis-button-wrap, #slideshow {
+    margin-top: 20px;
 }
 
 .album-list, footer p, .current-photo {
@@ -40,4 +44,74 @@ th {
 
 #pagination {
     margin-top: 20px;
+}
+
+footer p { font-size: 11px; }
+
+@media (max-width: 480px) {
+    .addthis-button-wrap {
+        display: none;
+    }
+    
+    #share-code {
+        display: block;
+    }
+}
+
+@media (max-width: 767px) {
+    .addthis-button-wrap {
+        display: none;
+    }
+
+    #share-code {
+        display: block;
+    }
+
+    #photo-map {
+        display: none;
+    }
+
+    .next-photo, .previous-photo, .current-photo {
+        width: 33% !important;
+        float: left !important;
+    }
+
+    #photo-description p {
+        padding-top: 10px;
+        font-size: 14px !important;
+    }
+
+    #photo-info table, #pagination {
+        font-size: 14px !important;
+    }
+
+    #slideshow {
+        float: left;
+    }
+}
+
+
+@media (max-width: 979px) {
+
+    body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    #photo-info p, #pagination {
+        font-size: 12px;
+    }
+
+    #photo-info table {
+        font-size: 11px;
+    }
+
+    #photo-info h3 {
+        font-size: 15px;
+        line-height: auto;
+    }
+
+    #share-code {
+        display: none;
+    }
 }
