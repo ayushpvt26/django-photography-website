@@ -54,7 +54,11 @@ footer p { font-size: 11px; }
     }
     
     #share-code {
-        display: block;
+        display: block !important;
+    }
+
+    .navbar .brand {
+        font-size: 17px;
     }
 }
 
