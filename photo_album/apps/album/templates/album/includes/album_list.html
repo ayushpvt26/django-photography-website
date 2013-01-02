@@ -9,5 +9,5 @@
   </p>
   <p><a class="btn" href="{{ node.get_absolute_url }}">View photos &raquo;</a></p>
 </div>
-{% if forloop.counter|divisibleby:"3" %}<div class="clear"></div>{% endif %}
+{% if forloop.counter|divisibleby:"3" %}<div style="clear: both;"></div>{% endif %}
 {% endfor %}
