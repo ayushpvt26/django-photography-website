@@ -52,10 +52,6 @@ footer p { font-size: 11px; }
     .addthis-button-wrap {
         display: none;
     }
-    
-    #share-code {
-        display: block !important;
-    }
 
     .navbar .brand {
         font-size: 17px;
@@ -65,10 +61,6 @@ footer p { font-size: 11px; }
 @media (max-width: 767px) {
     .addthis-button-wrap {
         display: none;
-    }
-
-    #share-code {
-        display: block;
     }
 
     #photo-map {
