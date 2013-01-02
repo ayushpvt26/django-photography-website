@@ -84,6 +84,10 @@ footer p { font-size: 11px; }
     #slideshow {
         float: left;
     }
+
+    #share-code {
+        display: none;
+    }
 }
 
 
@@ -102,12 +106,12 @@ footer p { font-size: 11px; }
         font-size: 11px;
     }
 
+    #photo-info #share-code input {
+        font-size: 11px;
+    }
+
     #photo-info h3 {
         font-size: 15px;
         line-height: auto;
-    }
-
-    #share-code {
-        display: none;
     }
 }
