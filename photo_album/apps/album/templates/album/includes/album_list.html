@@ -1,0 +1,12 @@
+{% load thumbnail %}
+{% for node in nodes %}
+<div class="span4 album-list">
+  <h3>{{ node.title }}</h3>
+  <p>
+    {% thumbnail node.cover_image.picture "180x180" crop="center" as im %}
+      <a href="{{ node.get_absolute_url }}"><img src="{{ im.url }}"></a>
+    {% endthumbnail %}
+  </p>
+  <p><a class="btn" href="{{ node.get_absolute_url }}">View photos &raquo;</a></p>
+</div>
+{% endfor %}

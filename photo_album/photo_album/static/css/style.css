@@ -1,0 +1,43 @@
+/*
+Custom styles
+*/
+body {
+padding-top: 60px;
+padding-bottom: 40px;
+}
+
+.album-list, footer p, .current-photo {
+    text-align: center;
+}
+
+.next-photo {
+    text-align: right;
+}
+
+.album-list img {
+    border: 1px solid #333;
+}
+
+#photo-list li {
+    display: inline;
+    float: left;
+    list-style-type: none;
+    padding: 5px;
+}
+
+#slideshow {
+    float: right;
+}
+
+.addthis-button-wrap {
+    float: right;
+}
+
+th {
+    text-align: right;
+    padding-right: 10px;
+}
+
+#pagination {
+    margin-top: 20px;
+}

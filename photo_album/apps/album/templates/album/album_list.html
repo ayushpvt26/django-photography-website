@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Albums{% endblock %}
+
+{% block albums-active %} class="active"{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="span12">
+    <h2>Albums</h2>
+  </div>
+</div>
+
+<div class="row">
+  {% with nodes=object_list %}
+  {% include "album/includes/album_list.html" %}
+  {% endwith %}
+</div>
+{% endblock content %}

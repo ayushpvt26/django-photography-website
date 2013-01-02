@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="span10">
+    <h2>{{ object.title }}</h2>
+  </div>
+  <div class="span2">
+    <p>
+      <a href="slideshow/" class="btn" id="slideshow">
+          Slideshow &raquo;
+      </a>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <p>
+      {{ object.description }}
+    </p>
+  </div>
+</div>
+<div class="row">
+  <ul id="photo-list">
+  {% for photo in object.photo_set.all %}
+    <li>
+        {% thumbnail photo.picture "130x130" crop="center" as im %}
+        <a href="{{ photo.slug }}/">
+            <img src="{{ im.url }}">
+        </a>
+        {% endthumbnail %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock content %}

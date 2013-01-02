@@ -1,23 +1,40 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+
+
 {% block title %}Daniel Davies Photography{% endblock %}
+
+
+{% block home-active %} class="active"{% endblock %}
+
 {% block content %}
-<div class="split clear-fix">
-  <h2>Albums</h2>
-  {% with nodes=albums %}
-  {% include "album/includes/album_list.html" %}
-  {% endwith %}
+<div id="homepage">
+  <div class="hero-unit" id="map_canvas" style="height: 250px"></div>
+
+  <div class="row">
+    <div class="span12">
+      <h2>Albums</h2>
+    </div>
+  </div>
+  <div class="row">
+    {% with nodes=albums %}
+    {% include "album/includes/album_list.html" %}
+    {% endwith %}
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      <h2>Events</h2>
+    </div>
+  </div>
+  <div class="row">
+    {% with nodes=events %}
+    {% include "album/includes/album_list.html" %}
+    {% endwith %}
+  </div>
 </div>
-<div class="split">
-  <h2>Events</h2>
-  {% with nodes=events %}
-  {% include "album/includes/album_list.html" %}
-  {% endwith %}
-</div>
-<div class="clear-fix page-divide"></div>
-<h2>Events Map</h2>
-<div id="map_canvas" style="width: 950px; height: 400px;"></div>
 {% endblock content %}
+
 
 {% block js %}
 <script type="text/javascript"

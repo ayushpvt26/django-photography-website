@@ -1,32 +1,67 @@
 {% load shorty_tags %}<!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
     <title>{% block title %}{% endblock title %}</title>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Trocchi' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/layout.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Daniel Davies">
+
+    <!-- Le styles -->
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <!--<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">-->
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
     <link rel="shortlink" type="text/html" href="{% short_url %}">
-    {% block js %}{% endblock js %}
     {% block canonical %}{% endblock canonical %}
+
   </head>
+
   <body {% block extend_body %}{% endblock extend_body %}>
-    <div id="container">
-      <ul id="navigation">
-        <li><a href="{% url about-page %}">About</a></li>
-        <li>&bull;&nbsp;<a href="{% url album-list %}">Albums</a></li>
-        <li>&bull;&nbsp;<a href="{% url event-list %}">Events</a></li>
-      </ul>
-      <h1><a href="/">Daniel Davies' Photographs</a></h1>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Daniel Davies' Photographs</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li{% block home-active %}{% endblock %}><a href="/">Home</a></li>
+              <li{% block about-active %}{% endblock %}><a href="{% url about-page %}">About</a></li>
+              <li{% block albums-active %}{% endblock %}><a href="{% url album-list %}">Albums</a></li>
+              <li{% block events-active %}{% endblock %}><a href="{% url event-list %}">Events</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
       {% block content %}{% endblock content %}
-      <div id="footer">
+
+      <hr>
+
+      <footer>
         <p>
           <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br />All images on <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/StillImage" property="dct:title" rel="dct:type">Daniel Davies Photography</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.danux.co.uk" property="cc:attributionName" rel="cc:attributionURL">Daniel Davies</a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
         </p>
         <p>
-            The source code for the website can be downloaded from <a href="https://github.com/danux/django-photography-website">Github</a>.
+          The source code for the website can be downloaded from <a href="https://github.com/danux/django-photography-website">Github</a>.
         </p>
-      </div>
-    </div>
+      </footer>
+
+    </div> <!-- /container -->
+
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-19966171-3']);
@@ -38,5 +73,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
+    {% block js %}{% endblock js %}
   </body>
 </html>
