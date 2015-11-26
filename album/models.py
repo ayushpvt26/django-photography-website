@@ -1,11 +1,8 @@
 import string, urllib
 from datetime import datetime
-
-from PIL import Image, ExifTags
-
+from PIL import Image
 from django.contrib.sites.models import Site
 from django.conf import settings
-from django.db.models.signals import post_save
 from django.db import models
 
 

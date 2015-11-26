@@ -1,6 +1,6 @@
 # django-photography-website
 
 
-A straight forward website for displaying my photos in albums.
+A no longer supported project for hosting images. Please see https://github.com/danux/django-image-dump
 
-It's up and running at http://photos.danux.co.uk
+There's an example of extracting EXIF data from photos with Python so this project will remain here for the time being.
