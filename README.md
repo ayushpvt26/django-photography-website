@@ -1,4 +1,4 @@
-# django-photography-website
+# longer an amazing project
 
 
 A no longer supported project for hosting images. Please see https://github.com/danux/django-image-dump
